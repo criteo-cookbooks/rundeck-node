@@ -40,5 +40,5 @@ when 'linux'
   default['rundeck_node']['home']                = '/home/rundeck'
 when 'windows'
   default['rundeck_node']['group']               = 'Administrators'
-  default['rundeck_node']['home']                = 'C:\Users\rundeck'
+  default['rundeck_node']['home']                = 'C:\ProgramData\rundeck'
 end
