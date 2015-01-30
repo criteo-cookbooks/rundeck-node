@@ -38,8 +38,6 @@ when 'linux'
   end
 when 'windows'
 
-  include_recipe 'rundeck-node::local_user'
-
   require 'openssl'
   require 'digest/sha1'
 
