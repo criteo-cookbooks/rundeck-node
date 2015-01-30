@@ -46,7 +46,10 @@ when 'windows'
   thumbprint = Digest::SHA1.hexdigest(OpenSSL::X509::Certificate.new(public_key).to_der).upcase
 
   file public_key_file do
-    content public_key
+    content   public_key
+    owner     node['rundeck_node']['user']
+    group     node['rundeck_node']['group']
+    mode      '0600'
   end
 
   execute 'Import public key into LocalMachine\Root' do # ~FC009
