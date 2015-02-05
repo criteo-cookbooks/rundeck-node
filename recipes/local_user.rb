@@ -35,8 +35,14 @@ if node['rundeck_node']['user_password_file']
   file node['rundeck_node']['user_password_file'] do
     content        user_pwd
     backup         false
-    owner          'LocalSystem'
-    mode           '0600'
+    case node['os']
+    when 'linux'
+      owner        root
+      mode         '0600'
+    when 'windows'
+      inherits     false
+      rights       :full_control, 'SYSTEM'
+    end
   end
 end
 
