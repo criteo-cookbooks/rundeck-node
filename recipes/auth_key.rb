@@ -58,11 +58,9 @@ when 'windows'
     not_if            "Test-Path cert:LocalMachine/Root/#{thumbprint}"
   end
 
-  file_resource_name = "file[#{node['rundeck_node']['user_password_file']}]"
-  pwd_file_content = resources(file_resource_name).content if resources.include? file_resource_name
   winrm_config_service_certmapping node['rundeck_node']['user'] do
     username      node['rundeck_node']['user']
-    password      node['rundeck_node']['user_password'] || pwd_file_content
+    password      node['rundeck_node']['user_password'] || node.run_state['rundeck_user_password']
     issuer        thumbprint
     subject       '*'
     uri           '*'

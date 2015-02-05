@@ -29,6 +29,9 @@ if node['rundeck_node']['user_password_file']
     user_pwd = secure_password
   end
 
+  # store the password in run_state for future use
+  node.run_state['rundeck_user_password'] = user_pwd
+
   file node['rundeck_node']['user_password_file'] do
     content        user_pwd
     backup         false
