@@ -2,8 +2,14 @@ require 'spec_helper'
 
 describe 'rundeck-node::local_user' do
 
-  let(:windows_chef_run) { ChefSpec::SoloRunner.new(WINDOWS_OHAI).converge(described_recipe) }
-  let(:linux_chef_run) { ChefSpec::SoloRunner.new.converge(described_recipe) }
+  let(:windows_chef_run) do
+    windows_file_rights_hack
+    ChefSpec::SoloRunner.new(WINDOWS_OHAI).converge(described_recipe)
+  end
+
+  let(:linux_chef_run) do
+    ChefSpec::SoloRunner.new.converge(described_recipe)
+  end
 
   it 'creates group with rundeck user in it' do
     expect(windows_chef_run).to create_group('Administrators').with(members: ['rundeck'])
