@@ -19,14 +19,20 @@
 # limitations under the License.
 #
 
+chef_gem 'keepass-password-generator' do
+  version '0.1.1'
+end
+
 user_pwd = node['rundeck_node']['user_password']
 if node['rundeck_node']['user_password_file']
   if ::File.exist?(node['rundeck_node']['user_password_file'])
     user_pwd = ::File.read(node['rundeck_node']['user_password_file'])
   else
-    # include OpenSSL function secure_password
-    self.class.send(:include, Opscode::OpenSSL::Password)
-    user_pwd = secure_password
+    # Generate a password meeting microsoft password complexity requirements
+    # https://technet.microsoft.com/en-us/library/cc786468(v=ws.10).aspx
+    # in short: at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
+    require 'keepass/password'
+    user_pwd = KeePass::Password.generate("uldsS{26}")
   end
 
   # store the password in run_state for future use
