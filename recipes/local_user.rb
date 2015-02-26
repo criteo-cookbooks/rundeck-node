@@ -19,12 +19,13 @@
 # limitations under the License.
 #
 
-chef_gem 'keepass-password-generator' do
-  version '0.1.1'
-end
-
 user_pwd = node['rundeck_node']['user_password']
 if node['rundeck_node']['user_password_file']
+
+  chef_gem 'keepass-password-generator' do
+    version '0.1.1'
+  end
+
   if ::File.exist?(node['rundeck_node']['user_password_file'])
     user_pwd = ::File.read(node['rundeck_node']['user_password_file'])
   else
