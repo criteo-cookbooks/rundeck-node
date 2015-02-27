@@ -24,6 +24,8 @@ default['rundeck_node']['user']                  = 'rundeck'
 default['rundeck_node']['user_password_file']    = nil
 default['rundeck_node']['user_password']         = nil
 
+default['rundeck_node']['keepass_version']       = nil
+
 # Authentication types
 default['rundeck_node']['auth']['key']           = true
 # Not handled yet

@@ -23,7 +23,7 @@ user_pwd = node['rundeck_node']['user_password']
 if node['rundeck_node']['user_password_file']
 
   chef_gem 'keepass-password-generator' do
-    version '0.1.1'
+    version node['rundeck_node']['keepass_version']
   end
 
   if ::File.exist?(node['rundeck_node']['user_password_file'])
