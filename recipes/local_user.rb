@@ -20,7 +20,7 @@
 #
 
 user_pwd = node['rundeck_node']['user_password']
-if node['rundeck_node']['user_password_file']
+if node['rundeck_node']['user_password_file'] && user_pwd.nil?
 
   chef_gem 'keepass-password-generator' do
     version node['rundeck_node']['keepass_version']
