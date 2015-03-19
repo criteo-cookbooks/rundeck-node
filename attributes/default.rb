@@ -19,31 +19,31 @@
 #
 
 # User type on node (could be local or domain)
-default['rundeck_node']['account']               = 'local'
-default['rundeck_node']['user']                  = 'rundeck'
-default['rundeck_node']['user_password_file']    = nil
-default['rundeck_node']['user_password']         = nil
+default['rundeck_node']['account']                     = 'local'
+default['rundeck_node']['user']                        = 'rundeck'
+default['rundeck_node']['user_password_file']          = nil
+default['rundeck_node']['user_password']               = nil
 
-default['rundeck_node']['keepass_version']       = nil
+default['rundeck_node']['keepass_version']             = nil
 
 # Authentication types
-default['rundeck_node']['auth']['key']           = true
+default['rundeck_node']['auth']['key']                 = true
 # Not handled yet
-# default['rundeck_node']['auth']['password']      = false
-# default['rundeck_node']['auth']['kerberos']      = false
+# default['rundeck_node']['auth']['password']            = false
+# default['rundeck_node']['auth']['kerberos']            = false
 
 # Authentication public key
-default['rundeck_node']['auth_public_key']       = nil
+default['rundeck_node']['auth_public_key']            = nil
 
 # RunDeck node access configuration depending on OS
 case node['os']
 when 'linux'
-  default['rundeck_node']['group']               = 'rundeck'
-  default['rundeck_node']['home']                = '/home/rundeck'
+  default['rundeck_node']['group']                    = 'rundeck'
+  default['rundeck_node']['home']                     = '/home/rundeck'
   default['rundeck_node']['user_password_file_owner'] = 'root'
 when 'windows'
-  default['rundeck_node']['group']               = 'Administrators'
-  default['rundeck_node']['home']                = 'C:\ProgramData\rundeck'
-  default['rundeck_node']['user_password_file']  = ::File.join(::Chef::Config['file_cache_path'], 'rundeck.pwd')
+  default['rundeck_node']['group']                    = 'Administrators'
+  default['rundeck_node']['home']                     = 'C:\ProgramData\rundeck'
+  default['rundeck_node']['user_password_file']       = ::File.join(::Chef::Config['file_cache_path'], 'rundeck.pwd')
   default['rundeck_node']['user_password_file_owner'] = 'SYSTEM'
 end
