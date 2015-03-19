@@ -40,8 +40,10 @@ case node['os']
 when 'linux'
   default['rundeck_node']['group']               = 'rundeck'
   default['rundeck_node']['home']                = '/home/rundeck'
+  default['rundeck_node']['user_password_file_owner'] = 'root'
 when 'windows'
   default['rundeck_node']['group']               = 'Administrators'
   default['rundeck_node']['home']                = 'C:\ProgramData\rundeck'
   default['rundeck_node']['user_password_file']  = ::File.join(::Chef::Config['file_cache_path'], 'rundeck.pwd')
+  default['rundeck_node']['user_password_file_owner'] = 'SYSTEM'
 end

@@ -44,11 +44,11 @@ if node['rundeck_node']['user_password_file'] && user_pwd.nil?
     backup         false
     case node['os']
     when 'linux'
-      owner        root
+      owner        node['rundeck_node']['user_password_file_owner']
       mode         '0600'
     when 'windows'
       inherits     false
-      rights       :full_control, 'SYSTEM'
+      rights       :full_control, node['rundeck_node']['user_password_file_owner']
     end
   end
 end
