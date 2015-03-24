@@ -1,3 +1,7 @@
+1.0.3 (2015-03-24)
+-----
+    * Comply with winrm-config limitation: no double quote in user password
+
 1.0.2 (2015-03-19)
 -----
     * Add ability to customize user password file owner
