@@ -3,34 +3,37 @@ platforms:
 - name: centos-6.4
   driver_plugin: vagrant
   driver_config:
-    box: opscode-centos-6.4
+    box:     opscode-centos-6.4
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-- name: windows-2008r2
-  driver_plugin: vagrant_winrm
-  provisioner:
-    name: chef_zero
-    sudo: false
-    root_path: C:/var/chef
-    require_chef_omnibus: false
-    chef_client_path: C:/opscode/chef/bin/chef-client
-    chef_omnibus_root: C:/opscode/chef/
-    ruby_bindir: C:/opscode/chef/embedded/bin
-  driver_config:
-    provision: true
-    custom_settings:
-      omnibus.chef_version: '11.16.4'
-    box: windows-2008r2-web-core
-    box_url: http://filer.criteo.prod:8080/boxes/windows-2008r2-web-core.box
-- name: osx-10
-  driver_plugin: vagrant
-  driver_config:
-    box: osx-yosemite-0.2.0
-    box_url: http://files.dryga.com/boxes/osx-yosemite-0.2.0.box
+#
+# Example Windows platform
+#
+# - name: windows-2008r2
+#   driver_plugin: vagrant_winrm
+#   provisioner:
+#     name:                 chef_zero
+#     sudo:                 false
+#     require_chef_omnibus: false
+#     root_path:            C:/var/chef
+#     chef_client_path:     C:/opscode/chef/bin/chef-client
+#     chef_omnibus_root:    C:/opscode/chef/
+#     ruby_bindir:          C:/opscode/chef/embedded/bin
+#   driver_config:
+#     provision: true
+#     custom_settings:
+#       omnibus.chef_version: '11.16.4'
+#     box:     <boxname>
+#     box_url: <boxurl>
+#
+# Please check OS X's EULA before enabling it
+#
+# - name: osx-10
+#   driver_plugin: vagrant
+#   driver_config:
+#     box:     osx-yosemite-0.2.0
+#     box_url: http://files.dryga.com/boxes/osx-yosemite-0.2.0.box
 
 suites:
 - name: default
   run_list:
   - recipe[rundeck-node]
-  attributes:
-    rundeck_node:
-      user_password_file: /password_file
