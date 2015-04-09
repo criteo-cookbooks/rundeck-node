@@ -44,7 +44,7 @@ if node['rundeck_node']['user_password_file'] && user_pwd.nil?
     content        user_pwd
     backup         false
     case node['os']
-    when 'linux'
+    when 'linux', 'darwin'
       owner        node['rundeck_node']['user_password_file_owner']
       mode         '0600'
     when 'windows'
@@ -58,7 +58,10 @@ user node['rundeck_node']['user'] do
   comment          'Rundeck User'
   manage_home      true
   home             node['rundeck_node']['home']
-  unless platform? 'windows'
+  if node['os'] == 'darwin'
+    gid            'admin' # user must have a PrimaryGroupID on OS X
+  end
+  unless node['os'] == 'windows'
     shell          '/bin/bash'
     system         true
   end
@@ -73,7 +76,7 @@ end
 
 # sudo access
 sudo 'rundeck-node' do
-  user           node['rundeck_node']['user']
-  nopasswd       user_pwd.nil?
-  only_if        { node['os'] == 'linux' }
+  user             node['rundeck_node']['user']
+  nopasswd         user_pwd.nil?
+  not_if           { node['os'] == 'windows' }
 end

@@ -20,7 +20,7 @@
 #
 
 case node['os']
-when 'linux'
+when 'linux', 'darwin'
   # SSH public key placement
   directory "#{node['rundeck_node']['home']}/.ssh" do
     owner     node['rundeck_node']['user']

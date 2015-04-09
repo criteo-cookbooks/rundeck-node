@@ -37,6 +37,10 @@ default['rundeck_node']['auth_public_key']            = nil
 
 # RunDeck node access configuration depending on OS
 case node['os']
+when 'darwin'
+  default['rundeck_node']['group']                    = 'admin'
+  default['rundeck_node']['home']                     = '/Users/rundeck'
+  default['rundeck_node']['user_password_file_owner'] = 'root'
 when 'linux'
   default['rundeck_node']['group']                    = 'rundeck'
   default['rundeck_node']['home']                     = '/home/rundeck'

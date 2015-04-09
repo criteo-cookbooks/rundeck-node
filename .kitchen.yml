@@ -21,6 +21,11 @@ platforms:
       omnibus.chef_version: '11.16.4'
     box: windows-2008r2-web-core
     box_url: http://filer.criteo.prod:8080/boxes/windows-2008r2-web-core.box
+- name: osx-10
+  driver_plugin: vagrant
+  driver_config:
+    box: osx-yosemite-0.2.0
+    box_url: http://files.dryga.com/boxes/osx-yosemite-0.2.0.box
 
 suites:
 - name: default
