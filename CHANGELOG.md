@@ -1,3 +1,7 @@
+1.0.4 (2015-04-10)
+-----
+    * Add Mac OS X support
+
 1.0.3 (2015-03-24)
 -----
     * Comply with winrm-config limitation: no double quote in user password
