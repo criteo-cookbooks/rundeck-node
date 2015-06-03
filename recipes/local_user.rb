@@ -75,6 +75,8 @@ group node['rundeck_node']['group'] do
 end
 
 # sudo access
+include_recipe 'sudo' unless node['os'] == 'windows'
+
 sudo 'rundeck-node' do
   user             node['rundeck_node']['user']
   nopasswd         user_pwd.nil?
