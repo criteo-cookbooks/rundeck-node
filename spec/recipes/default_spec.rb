@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe 'rundeck-node::default' do
-
+  before do
+    stub_command('which sudo').and_return('/usr/bin/sudo')
+  end
 
   def linux_chef_run(attributes = {})
     ChefSpec::SoloRunner.new do |node|
