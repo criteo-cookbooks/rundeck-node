@@ -49,5 +49,5 @@ when 'windows'
   default['rundeck_node']['group']                    = 'Administrators'
   default['rundeck_node']['home']                     = 'C:\ProgramData\rundeck'
   default['rundeck_node']['user_password_file']       = ::File.join(::Chef::Config['file_cache_path'], 'rundeck.pwd')
-  default['rundeck_node']['user_password_file_owner'] = 'SYSTEM'
+  default['rundeck_node']['user_password_file_owner'] = 'Administrators'
 end
