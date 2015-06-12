@@ -1,4 +1,4 @@
-1.0.5 (2015-04-10)
+1.0.5 (2015-06-11)
 -----
     * Fixing sudo dependency for linux
 
