@@ -1,5 +1,7 @@
 rundeck-node
 ========
+[![Cookbook Version][cookbook_version]][cookbook]
+[![Build Status][build_status]][build_status]
 
 This cookbook configures a Rundeck node to be used with Rundeck server.
 
@@ -61,3 +63,6 @@ limitations under the License.
 ```
 
 [repository]:               https://github.com/criteo-cookbooks/rundeck-node
+[build_status]:             https://api.travis-ci.org/criteo-cookbooks/rundeck-node.svg?branch=master
+[cookbook_version]:         https://img.shields.io/cookbook/v/rundeck-node.svg
+[cookbook]:                 https://supermarket.chef.io/cookbooks/rundeck-node
