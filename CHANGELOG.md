@@ -1,3 +1,10 @@
+1.0.6 (2015-11-13)
+-----
+    * Rundeck password file on windows is now owned by Administrators
+    * Rundeck password does not contains '\' anymore
+    * Travis build is now using the new container-based infra
+    * Added travis and supermarket badges to README
+
 1.0.5 (2015-06-11)
 -----
     * Fixing sudo dependency for linux
