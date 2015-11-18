@@ -34,7 +34,7 @@ if node['rundeck_node']['user_password_file'] && user_pwd.nil?
     # in short: at least 1 uppercase, 1 lowercase, 1 digit, 1 special char
     require 'keepass/password'
     # winrm-config::service_certmapping does not support password with '"' or trailing '\'
-    user_pwd = KeePass::Password.generate('uldsS{26}').tr('\"', '*_')
+    user_pwd = KeePass::Password.generate('uldsS{26}').tr('"\\', '*_')
   end
 
   # store the password in run_state for future use
