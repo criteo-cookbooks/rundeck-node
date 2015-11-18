@@ -1,3 +1,7 @@
+1.0.7 (2015-11-18)
+-----
+    * Fix use of `string.tr` method to remove forbidden backslash character
+
 1.0.6 (2015-11-13)
 -----
     * Rundeck password file on windows is now owned by Administrators
