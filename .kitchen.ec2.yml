@@ -22,6 +22,9 @@ driver:
   security_group_ids: [<%= @group_id %>]
   subnet_id: <%= @subnet_id %>
 
+transport:
+  ssh_key: <%= ENV['HOME'] %>/.ssh/id_rsa
+
 provisioner:
   name: chef_zero
 
@@ -31,6 +34,9 @@ platforms:
       image_id: ami-1255b321
     transport:
       username: centos
+  - name: windows-2012r2
+    driver:
+      image_id: ami-71876711
 
 suites:
   - name: default
