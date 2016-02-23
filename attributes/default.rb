@@ -32,7 +32,7 @@ default['rundeck_node']['auth']['key']                 = true
 # default['rundeck_node']['auth']['password']            = false
 # default['rundeck_node']['auth']['kerberos']            = false
 
-# Authentication public key
+# Authentication public key - Required for Windows
 default['rundeck_node']['auth_public_key']            = nil
 
 # RunDeck node access configuration depending on OS

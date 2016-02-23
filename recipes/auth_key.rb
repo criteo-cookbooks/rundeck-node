@@ -41,6 +41,10 @@ when 'windows'
   require 'openssl'
   require 'digest/sha1'
 
+  unless node['rundeck_node']['auth_public_key']
+    raise 'Attribute auth_public_key is nil! A certificate is needed for Windows platforms.'
+  end
+
   public_key = node['rundeck_node']['auth_public_key']
   public_key_file = ::File.join(Chef::Config['file_cache_path'], 'rundeck.pem')
   thumbprint = Digest::SHA1.hexdigest(OpenSSL::X509::Certificate.new(public_key).to_der).upcase
