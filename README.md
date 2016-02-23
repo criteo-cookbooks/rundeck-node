@@ -12,7 +12,7 @@ New configuration options will be added as needed.
 Requirements
 ------------
 
-This cookbook requires chef >=11.10
+This cookbook requires chef >=12.0.0
 
 Usage
 -----
