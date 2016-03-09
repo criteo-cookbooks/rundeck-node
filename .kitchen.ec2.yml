@@ -10,6 +10,7 @@
 # - AWS_REGION
 # - AWS_SECURITY_GROUP
 # - AWS_SUBNET
+# - KITCHEN_NO_CONCURRENCY set it to true if you do not want concurrency
 
 <% require_relative 'aws-name-to-id' %>
 
