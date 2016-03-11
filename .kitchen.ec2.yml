@@ -1,27 +1,26 @@
 ---
-# The following environmental variables are required:
+# The following environment variables are required:
 # - AWS_ACCESS_KEY_ID
 # - AWS_SECRET_ACCESS_KEY
 # - AWS_SSH_KEY_ID
-#
-# @group_id and @subnet_id are created from names defined
-# in the aws-name-to-id.rb file. To change the names, edit
-# the file or set the following environment variables:
 # - AWS_REGION
+#
+# Optional environment variables:
 # - AWS_SECURITY_GROUP
 # - AWS_SUBNET
 # - KITCHEN_NO_CONCURRENCY set it to true if you do not want concurrency
 
-<% require_relative 'aws-name-to-id' %>
-
 driver:
   name: ec2
-  instance_type: t2.micro # Free tier instance
+  instance_type: t2.micro
   associate_public_ip: true
-  region: <%= @region %>
-  availability_zone: <%= @availability_zone %>
-  security_group_ids: [<%= @group_id %>]
-  subnet_id: <%= @subnet_id %>
+  region: <%= ENV['AWS_REGION'] %>
+  subnet_filter:
+    tag:   'Name'
+    value: <%= ENV['AWS_SUBNET'] || 'criteo-sre-core-testing-oss-vpc-subnet-1' %>
+  security_group_filter:
+    tag:   'Name'
+    value: <%= ENV['AWS_SECURITY_GROUP'] || 'criteo-sre-core-testing-oss-vpc-security-group' %>
 
 transport:
   ssh_key: <%= ENV['HOME'] %>/.ssh/id_rsa
@@ -30,14 +29,12 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-6
+  - name: centos-7
     driver:
-      image_id: ami-1255b321
-    transport:
-      username: centos
+      image_id: ami-d2c924b2
   - name: windows-2012r2
     driver:
-      image_id: ami-71876711
+      image_id: ami-df8767bf
 
 suites:
   - name: default
