@@ -5,7 +5,7 @@ require 'kitchen'
 FoodCritic::Rake::LintTask.new
 RSpec::Core::RakeTask.new(:rspec)
 
-desc "Run kitchen tests sequentially"
+desc 'Run kitchen tests sequentially'
 task :ec2_sequential do
   Kitchen.logger = Kitchen.default_file_logger
   @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.ec2.yml')
@@ -15,7 +15,7 @@ task :ec2_sequential do
   end
 end
 
-desc "Run kitchen tests concurrently"
+desc 'Run kitchen tests concurrently'
 task :ec2_concurrent do
   Kitchen.logger = Kitchen.default_file_logger
   @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.ec2.yml')
