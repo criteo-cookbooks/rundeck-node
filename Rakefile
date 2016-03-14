@@ -5,32 +5,21 @@ require 'kitchen'
 FoodCritic::Rake::LintTask.new
 RSpec::Core::RakeTask.new(:rspec)
 
-desc 'Run kitchen tests sequentially'
-task :ec2_sequential do
+desc 'Run kitchen tests'
+task :test_ec2 do
   Kitchen.logger = Kitchen.default_file_logger
   @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.ec2.yml')
   config = Kitchen::Config.new(loader: @loader)
-  config.instances.each do |instance|
-    instance.test(:always)
-  end
-end
-
-desc 'Run kitchen tests concurrently'
-task :ec2_concurrent do
-  Kitchen.logger = Kitchen.default_file_logger
-  @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.ec2.yml')
-  config = Kitchen::Config.new(loader: @loader)
-  threads = []
-  config.instances.each do |instance|
-    threads << Thread.new do
+  if ENV['KITCHEN_NO_CONCURRENCY']
+    config.instances.each do |instance|
       instance.test(:always)
     end
+  else
+    threads = []
+    config.instances.each do |instance|
+      threads << Thread.new { instance.test(:always) }
+    end
+    threads.map(&:join)
   end
-  threads.map(&:join)
 end
-
-if ENV['KITCHEN_NO_CONCURRENCY']
-  task default: [:foodcritic, :rspec, :ec2_sequential]
-else
-  task default: [:foodcritic, :rspec, :ec2_concurrent]
-end
+task default: [:foodcritic, :rspec, :test_ec2]
