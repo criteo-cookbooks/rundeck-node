@@ -1,39 +1,42 @@
 ---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
 platforms:
-- name: centos-6.4
-  driver_plugin: vagrant
-  driver_config:
-    box:     opscode-centos-6.4
-    box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box
-#
-# Example Windows platform
-#
-# - name: windows-2008r2
-#   driver_plugin: vagrant_winrm
-#   provisioner:
-#     name:                 chef_zero
-#     sudo:                 false
-#     require_chef_omnibus: false
-#     root_path:            C:/var/chef
-#     chef_client_path:     C:/opscode/chef/bin/chef-client
-#     chef_omnibus_root:    C:/opscode/chef/
-#     ruby_bindir:          C:/opscode/chef/embedded/bin
-#   driver_config:
-#     provision: true
-#     custom_settings:
-#       omnibus.chef_version: '11.16.4'
-#     box:     <boxname>
-#     box_url: <boxurl>
-#
-# Please check OS X's EULA before enabling it
-#
-# - name: osx-10
-#   driver_plugin: vagrant
-#   driver_config:
-#     box:     osx-yosemite-0.2.0
-#     box_url: http://files.dryga.com/boxes/osx-yosemite-0.2.0.box
+  - name: centos-7.1
+    driver_config:
+      box: bento/centos-7.1
+  - name: windows-2012
+    driver_config:
+      box: opentable/win-2012r2-standard-amd64-nocm
 
 suites:
-- name: default
-  run_list:
-  - recipe[rundeck-node]
+  - name: default
+    run_list:
+    - recipe[rundeck-node]
+    attributes:
+      rundeck_node:
+        auth_public_key: |-
+          -----BEGIN CERTIFICATE-----
+          MIIDKTCCAhGgAwIBAgIJAJLkfj8zv9D9MA0GCSqGSIb3DQEBCwUAMCsxDTALBgNV
+          BAMMBHRlc3QxDTALBgNVBAoMBHRlc3QxCzAJBgNVBAYTAkZSMB4XDTE2MDMwOTEz
+          NTY1MVoXDTI2MDMwNzEzNTY1MVowKzENMAsGA1UEAwwEdGVzdDENMAsGA1UECgwE
+          dGVzdDELMAkGA1UEBhMCRlIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+          AQDis17pVVbw1JPKXtbLAzeSX8XbUPajNwwXMeYisVdc3e1sNxlLsJxO8j8Usxy2
+          8//McyJKqgO6KaUTMalaGB61FS2EEaEb9J3bTA3nxdgcn9XGUcw6LpF7nlyh4qNu
+          1iRbxtrxCfcvb3JgtXRVUIlgqqaNwIdHcCpW/+ob4gLkDVmjz6+i/k0nJRQLeHGs
+          Io25JfkLBJoN1/vvY5F8zBgE9w/GKzqvJL9YMh115uknD3M+WRF27UljFQYtSs06
+          Und+ZQH7FLSVnlFXHUNyRjzQ6PHCOladSfDT+SyAjuT8rMX6XtEvNphgL7Xvr0wy
+          u7oavdmI5lgXLSJJN2FxI49FAgMBAAGjUDBOMB0GA1UdDgQWBBRyvk7onWv0cI9u
+          jw7+nlkx4mdRxTAfBgNVHSMEGDAWgBRyvk7onWv0cI9ujw7+nlkx4mdRxTAMBgNV
+          HRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA+4sQ257JUpqC5ocWd2uY7Da4a
+          nhhoVIKLqNVMIu7hbt1pfN37bkO9aAf2WbyFCaD6irVXlvHqwTgLWX6g9x/5JcWq
+          JMCR/H/FGcH427bVbEZmuNOe5I7yFNGLiGrTxQNOwd/HDbGkx0gtB7rZliAjWe8N
+          ZQQreMz45fb75Bg+e9bn87W/Xz5gg6hlfCapG2Fhyf9O5Gp8jHT1cENxr5/gQWMq
+          GqJuBgmhGKlh/gmV9TLtZNLZiN2ZAbCjyDk3hyv5zsNMhc588GNmGS8OMwzJPZLS
+          P3ISuH/OimntjjjWDrGjbN7gG5et9yy+mnv7l1tysHqpbCP7/hQjvvKssLHZ
+          -----END CERTIFICATE-----
+
