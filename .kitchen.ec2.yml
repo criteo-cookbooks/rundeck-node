@@ -14,7 +14,7 @@ driver:
   name: ec2
   instance_type: t2.micro
   associate_public_ip: true
-  region: <%= ENV['AWS_REGION'] %>
+  region: <%= ENV['AWS_REGION'] || 'us-west-2' %>
   subnet_filter:
     tag:   'Name'
     value: <%= ENV['AWS_SUBNET'] || 'criteo-sre-core-testing-oss-vpc-subnet-1' %>
@@ -37,28 +37,28 @@ platforms:
       image_id: ami-df8767bf
 
 suites:
-  - name: default
-    run_list:
-      - recipe[rundeck-node]
-    attributes:
-      rundeck_node:
-        auth_public_key: |-
-          -----BEGIN CERTIFICATE-----
-          MIIDKTCCAhGgAwIBAgIJAJLkfj8zv9D9MA0GCSqGSIb3DQEBCwUAMCsxDTALBgNV
-          BAMMBHRlc3QxDTALBgNVBAoMBHRlc3QxCzAJBgNVBAYTAkZSMB4XDTE2MDMwOTEz
-          NTY1MVoXDTI2MDMwNzEzNTY1MVowKzENMAsGA1UEAwwEdGVzdDENMAsGA1UECgwE
-          dGVzdDELMAkGA1UEBhMCRlIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
-          AQDis17pVVbw1JPKXtbLAzeSX8XbUPajNwwXMeYisVdc3e1sNxlLsJxO8j8Usxy2
-          8//McyJKqgO6KaUTMalaGB61FS2EEaEb9J3bTA3nxdgcn9XGUcw6LpF7nlyh4qNu
-          1iRbxtrxCfcvb3JgtXRVUIlgqqaNwIdHcCpW/+ob4gLkDVmjz6+i/k0nJRQLeHGs
-          Io25JfkLBJoN1/vvY5F8zBgE9w/GKzqvJL9YMh115uknD3M+WRF27UljFQYtSs06
-          Und+ZQH7FLSVnlFXHUNyRjzQ6PHCOladSfDT+SyAjuT8rMX6XtEvNphgL7Xvr0wy
-          u7oavdmI5lgXLSJJN2FxI49FAgMBAAGjUDBOMB0GA1UdDgQWBBRyvk7onWv0cI9u
-          jw7+nlkx4mdRxTAfBgNVHSMEGDAWgBRyvk7onWv0cI9ujw7+nlkx4mdRxTAMBgNV
-          HRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA+4sQ257JUpqC5ocWd2uY7Da4a
-          nhhoVIKLqNVMIu7hbt1pfN37bkO9aAf2WbyFCaD6irVXlvHqwTgLWX6g9x/5JcWq
-          JMCR/H/FGcH427bVbEZmuNOe5I7yFNGLiGrTxQNOwd/HDbGkx0gtB7rZliAjWe8N
-          ZQQreMz45fb75Bg+e9bn87W/Xz5gg6hlfCapG2Fhyf9O5Gp8jHT1cENxr5/gQWMq
-          GqJuBgmhGKlh/gmV9TLtZNLZiN2ZAbCjyDk3hyv5zsNMhc588GNmGS8OMwzJPZLS
-          P3ISuH/OimntjjjWDrGjbN7gG5et9yy+mnv7l1tysHqpbCP7/hQjvvKssLHZ
-          -----END CERTIFICATE-----
+- name: default
+  run_list:
+    - recipe[rundeck-node]
+  attributes:
+    rundeck_node:
+      auth_public_key: |-
+        -----BEGIN CERTIFICATE-----
+        MIIDKTCCAhGgAwIBAgIJAJLkfj8zv9D9MA0GCSqGSIb3DQEBCwUAMCsxDTALBgNV
+        BAMMBHRlc3QxDTALBgNVBAoMBHRlc3QxCzAJBgNVBAYTAkZSMB4XDTE2MDMwOTEz
+        NTY1MVoXDTI2MDMwNzEzNTY1MVowKzENMAsGA1UEAwwEdGVzdDENMAsGA1UECgwE
+        dGVzdDELMAkGA1UEBhMCRlIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+        AQDis17pVVbw1JPKXtbLAzeSX8XbUPajNwwXMeYisVdc3e1sNxlLsJxO8j8Usxy2
+        8//McyJKqgO6KaUTMalaGB61FS2EEaEb9J3bTA3nxdgcn9XGUcw6LpF7nlyh4qNu
+        1iRbxtrxCfcvb3JgtXRVUIlgqqaNwIdHcCpW/+ob4gLkDVmjz6+i/k0nJRQLeHGs
+        Io25JfkLBJoN1/vvY5F8zBgE9w/GKzqvJL9YMh115uknD3M+WRF27UljFQYtSs06
+        Und+ZQH7FLSVnlFXHUNyRjzQ6PHCOladSfDT+SyAjuT8rMX6XtEvNphgL7Xvr0wy
+        u7oavdmI5lgXLSJJN2FxI49FAgMBAAGjUDBOMB0GA1UdDgQWBBRyvk7onWv0cI9u
+        jw7+nlkx4mdRxTAfBgNVHSMEGDAWgBRyvk7onWv0cI9ujw7+nlkx4mdRxTAMBgNV
+        HRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA+4sQ257JUpqC5ocWd2uY7Da4a
+        nhhoVIKLqNVMIu7hbt1pfN37bkO9aAf2WbyFCaD6irVXlvHqwTgLWX6g9x/5JcWq
+        JMCR/H/FGcH427bVbEZmuNOe5I7yFNGLiGrTxQNOwd/HDbGkx0gtB7rZliAjWe8N
+        ZQQreMz45fb75Bg+e9bn87W/Xz5gg6hlfCapG2Fhyf9O5Gp8jHT1cENxr5/gQWMq
+        GqJuBgmhGKlh/gmV9TLtZNLZiN2ZAbCjyDk3hyv5zsNMhc588GNmGS8OMwzJPZLS
+        P3ISuH/OimntjjjWDrGjbN7gG5et9yy+mnv7l1tysHqpbCP7/hQjvvKssLHZ
+        -----END CERTIFICATE-----
