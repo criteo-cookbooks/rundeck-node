@@ -17,10 +17,10 @@ driver:
   region: <%= ENV['AWS_REGION'] || 'us-west-2' %>
   subnet_filter:
     tag:   'Name'
-    value: <%= ENV['AWS_SUBNET'] || 'criteo-sre-core-testing-oss-vpc-subnet-1' %>
+    value: <%= ENV['AWS_SUBNET'] || 'chef-testing-opensource-vpc-subnet' %>
   security_group_filter:
     tag:   'Name'
-    value: <%= ENV['AWS_SECURITY_GROUP'] || 'criteo-sre-core-testing-oss-vpc-security-group' %>
+    value: <%= ENV['AWS_SECURITY_GROUP'] || 'chef-testing-opensource-vpc-security-group' %>
 
 transport:
   ssh_key: <%= ENV['HOME'] %>/.ssh/id_rsa
