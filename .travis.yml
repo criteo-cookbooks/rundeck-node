@@ -22,5 +22,5 @@ env:
   - secure: Crx83KVvVGiPi467go6a//nnBVhDH4Bn4+Mq6KemE+udvZ7iVkpnWNfcMA44MOGNadMOcyQI9r/TjNjOE+0+ZirqZsMXJIyGxzeF2kQNuXRHfxOtOZPpG9gk51JxFGUm9wKtFRVhMBkRIuOY7R8mHQ14b/g4JhXSBTbriTCXXvs=
   - secure: WcPx3KJMni4RBvgvYyCZgsv4/4vZCspN/0OzKZGFN3c19DFHa+DYJc0gwnhv/VeCKQ1B6j9MOX75Fl2sRbw9Kudt14FdCM1Z2OyiMtRRGLyXsfYkSGG8j1LoqwBdo1qF6Ih4x41qOCeeLvm7ugTzXbVVRNBFetsM0zythAPsaRY=
 before_install:
-- openssl aes-256-cbc -K $encrypted_e86e193fd6ed_key -iv $encrypted_e86e193fd6ed_iv
+- openssl aes-256-cbc -K $encrypted_c1c41e91a1cd_key -iv $encrypted_c1c41e91a1cd_iv
   -in .travis/travis-ci.pem.enc -out ~/.ssh/id_rsa -d
