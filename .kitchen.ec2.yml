@@ -1,26 +1,26 @@
 ---
-# The following environmental variables are required:
+# The following environment variables are required:
 # - AWS_ACCESS_KEY_ID
 # - AWS_SECRET_ACCESS_KEY
 # - AWS_SSH_KEY_ID
-#
-# @group_id and @subnet_id are created from names defined
-# in the aws-name-to-id.rb file. To change the names, edit
-# the file or set the following environment variables:
 # - AWS_REGION
+#
+# Optional environment variables:
 # - AWS_SECURITY_GROUP
 # - AWS_SUBNET
-
-<% require_relative 'aws-name-to-id' %>
+# - KITCHEN_NO_CONCURRENCY set it to true if you do not want concurrency
 
 driver:
   name: ec2
-  instance_type: t2.micro # Free tier instance
+  instance_type: t2.micro
   associate_public_ip: true
-  region: <%= @region %>
-  availability_zone: <%= @availability_zone %>
-  security_group_ids: [<%= @group_id %>]
-  subnet_id: <%= @subnet_id %>
+  region: <%= ENV['AWS_REGION'] || 'us-west-2' %>
+  subnet_filter:
+    tag:   'Name'
+    value: <%= ENV['AWS_SUBNET'] || 'chef-testing-opensource-vpc-subnet' %>
+  security_group_filter:
+    tag:   'Name'
+    value: <%= ENV['AWS_SECURITY_GROUP'] || 'chef-testing-opensource-vpc-security-group' %>
 
 transport:
   ssh_key: <%= ENV['HOME'] %>/.ssh/id_rsa
@@ -29,16 +29,36 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: centos-6
+  - name: centos-7
     driver:
-      image_id: ami-1255b321
-    transport:
-      username: centos
+      image_id: ami-d2c924b2
   - name: windows-2012r2
     driver:
-      image_id: ami-71876711
+      image_id: ami-df8767bf
 
 suites:
-  - name: default
-    run_list:
-      - recipe[rundeck-node]
+- name: default
+  run_list:
+    - recipe[rundeck-node]
+  attributes:
+    rundeck_node:
+      auth_public_key: |-
+        -----BEGIN CERTIFICATE-----
+        MIIDKTCCAhGgAwIBAgIJAJLkfj8zv9D9MA0GCSqGSIb3DQEBCwUAMCsxDTALBgNV
+        BAMMBHRlc3QxDTALBgNVBAoMBHRlc3QxCzAJBgNVBAYTAkZSMB4XDTE2MDMwOTEz
+        NTY1MVoXDTI2MDMwNzEzNTY1MVowKzENMAsGA1UEAwwEdGVzdDENMAsGA1UECgwE
+        dGVzdDELMAkGA1UEBhMCRlIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIB
+        AQDis17pVVbw1JPKXtbLAzeSX8XbUPajNwwXMeYisVdc3e1sNxlLsJxO8j8Usxy2
+        8//McyJKqgO6KaUTMalaGB61FS2EEaEb9J3bTA3nxdgcn9XGUcw6LpF7nlyh4qNu
+        1iRbxtrxCfcvb3JgtXRVUIlgqqaNwIdHcCpW/+ob4gLkDVmjz6+i/k0nJRQLeHGs
+        Io25JfkLBJoN1/vvY5F8zBgE9w/GKzqvJL9YMh115uknD3M+WRF27UljFQYtSs06
+        Und+ZQH7FLSVnlFXHUNyRjzQ6PHCOladSfDT+SyAjuT8rMX6XtEvNphgL7Xvr0wy
+        u7oavdmI5lgXLSJJN2FxI49FAgMBAAGjUDBOMB0GA1UdDgQWBBRyvk7onWv0cI9u
+        jw7+nlkx4mdRxTAfBgNVHSMEGDAWgBRyvk7onWv0cI9ujw7+nlkx4mdRxTAMBgNV
+        HRMEBTADAQH/MA0GCSqGSIb3DQEBCwUAA4IBAQA+4sQ257JUpqC5ocWd2uY7Da4a
+        nhhoVIKLqNVMIu7hbt1pfN37bkO9aAf2WbyFCaD6irVXlvHqwTgLWX6g9x/5JcWq
+        JMCR/H/FGcH427bVbEZmuNOe5I7yFNGLiGrTxQNOwd/HDbGkx0gtB7rZliAjWe8N
+        ZQQreMz45fb75Bg+e9bn87W/Xz5gg6hlfCapG2Fhyf9O5Gp8jHT1cENxr5/gQWMq
+        GqJuBgmhGKlh/gmV9TLtZNLZiN2ZAbCjyDk3hyv5zsNMhc588GNmGS8OMwzJPZLS
+        P3ISuH/OimntjjjWDrGjbN7gG5et9yy+mnv7l1tysHqpbCP7/hQjvvKssLHZ
+        -----END CERTIFICATE-----
